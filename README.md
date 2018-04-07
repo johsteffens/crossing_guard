@@ -41,4 +41,4 @@ The source code in this repository is licensed under the [Apache 2.0 License](ht
 
 ## Motivation
 
-I wrote this tool to help my wife with the assignment of crossing-guards for our local primary school.
+I wrote this tool to help my wife with crossing-guard assignment for our local primary school.
