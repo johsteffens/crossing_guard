@@ -1,0 +1,5 @@
+crossing_guard.*
+build/crossing_guard
+dev
+bin
+obj
