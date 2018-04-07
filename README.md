@@ -37,7 +37,7 @@ Crossing-Guard will take the the two files and calculate a fair assignment for a
       * run: `make`. This produces the binary file `crossing_guard`.
 
 ## License
-The source code in this repository is licensed under the [Apache 2.0 License](https://github.com/johsteffens/actinon/blob/master/LICENSE).
+The source code in this repository is licensed under the [Apache 2.0 License](https://github.com/johsteffens/crossing_guard/blob/master/LICENSE).
 
 ## Motivation
 
