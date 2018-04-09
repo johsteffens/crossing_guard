@@ -1,7 +1,7 @@
 /* 
    This is an example of a configuration file for crossing_guard using beth-markup-language,
    which is hopefully self-explanatory.
-   Structually, the language has some similarity to XML. Syntactically it is specific to the 
+   Structurally, the language has some similarity to XML. Syntactically it is specific to the 
    beth object structure.
    Comments are enclosed/prefixed using C/C++ syntax.
 */
@@ -18,7 +18,7 @@
     sa:<bl_t>false</> 
     su:<bl_t>false</>
 
-    // Vacation  (Region: Lower-Saxony/Germany)
+    // Vacation Plan  (Region: Lower-Saxony/Germany)
     vacation_arr:<period_arr_s>
 
         // Fall 2017
@@ -64,22 +64,21 @@
         </>
     </>
 
-    // Holidays / Free days 
+    // Additional Holidays / School-free days
     holidays:<date_arr_s>
-        <date_s>:<st_s>"30.10.2017"</></> // Bridging-day
-        <date_s>:<st_s>"31.10.2017"</></> // Reformationstag
+        <date_s>:<st_s>"30.10.2017"</></> // Bridging-Day
+        <date_s>:<st_s>"31.10.2017"</></> // Reformation Day
 
         // 2018
-        <date_s>:<st_s>"30.04.2018"</></> // Bridging-day
+        <date_s>:<st_s>"30.04.2018"</></> // Bridging-Day
         <date_s>:<st_s>"01.05.2018"</></> // Labor Day
         <date_s>:<st_s>"10.05.2018"</></> // Ascension Day
-        <date_s>:<st_s>"11.05.2018"</></> // Bridging-day
+        <date_s>:<st_s>"11.05.2018"</></> // Bridging-Day
         <date_s>:<st_s>"21.05.2018"</></> // Pentecost
         <date_s>:<st_s>"22.05.2018"</></> // Pentecost
         <date_s>:<st_s>"03.10.2018"</></> // German Unity
 
     </>
-
     
     // Additional settings (do not change)
     rseed:<u2_t>12345</>

@@ -1,7 +1,7 @@
 /* 
-   This is an example of a asignment-configuration file for crossing_guard using beth-markup-language,
+   This is an example of a assignment-configuration file for crossing_guard using beth-markup-language,
    which is hopefully self-explanatory.
-   Structually, the language has some similarity to XML. Syntactically it is specific to the 
+   Structurally, the language has some similarity to XML. Syntactically it is specific to the 
    beth object structure.
    
    * Comments are enclosed/prefixed using C/C++ syntax.
@@ -23,7 +23,7 @@
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"mo, tu, we, th, fr"</>
                 weekly_period:<sz_t>1</>                // 1: every week, 2 every 2nd week, 3: every third week, ...
-                including_week:<sz_t>1</>               // weeknumber included in weekly period (meaningless when period is 1)
+                including_week:<sz_t>1</>               // week-number included in weekly period (meaningless when period is 1)
             </>
 
             // True: Crossing guard will choose always the same weekday within the person's preferences.
@@ -51,8 +51,8 @@
 		// Already assigned dates:
 		// This tells crossing_guard which dates have been served in the past.
 		// It is typically used for a subsequent period assignment (possibly with an altered 
-		// set of people and/or theyr preferences). 
-		// Crossing guard will take already served dates into accont to calculate a fair assignment. 
+		// set of people and/or their preferences). 
+		// Crossing guard will take already served dates into account to calculate a fair assignment. 
 		// Only the last date in the past needs actually be specified.
         assigned_dates:<date_arr_s>  
             <date_s>:<st_s>"17.12.2017"</></>
@@ -69,7 +69,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"alice"</>
+        name:<st_s>"Alice"</>
         preferences:<preferences_s>
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"tu, fr"</>
@@ -82,7 +82,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"bob"</>
+        name:<st_s>"Bob"</>
         preferences:<preferences_s>
             weight: <f3_t>0.5</>
             weekday_availability:<weekday_availability_s>
@@ -96,7 +96,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"carol"</>
+        name:<st_s>"Carol"</>
         preferences:<preferences_s>
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"tu"</>
@@ -109,7 +109,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"dave"</>
+        name:<st_s>"Dave"</>
         preferences:<preferences_s>
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"we"</>
@@ -123,7 +123,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"grace"</>
+        name:<st_s>"Grace"</>
         preferences:<preferences_s>
             excluded_periods:<period_arr_s>
                 <period_s>
@@ -137,7 +137,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"oscar"</>
+        name:<st_s>"Oscar"</>
         preferences:<preferences_s>
             always_same_workday: <bl_t>false</>
         </>
@@ -146,7 +146,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"victor"</>
+        name:<st_s>"Victor"</>
         preferences:<preferences_s>
             always_same_workday: <bl_t>false</>
         </>
@@ -155,7 +155,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"wendy"</>
+        name:<st_s>"Wendy"</>
         preferences:<preferences_s>
             always_same_workday: <bl_t>false</>
         </>
@@ -164,7 +164,7 @@
 /******************************************************************************/
 
     <person_s>
-        name:<st_s>"judy"</>
+        name:<st_s>"Judy"</>
         preferences:<preferences_s>
             excluded_dates:<date_arr_s>
                 <date_s>
@@ -178,7 +178,7 @@
 
 /******************************************************************************/
 
-    <person_s> name:<st_s>"erin"</> </>
+    <person_s> name:<st_s>"Erin"</> </>
 
 /******************************************************************************/
 
