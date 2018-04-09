@@ -1,0 +1,186 @@
+/* 
+   This is an example of a asignment-configuration file for crossing_guard using beth-markup-language,
+   which is hopefully self-explanatory.
+   Structually, the language has some similarity to XML. Syntactically it is specific to the 
+   beth object structure.
+   
+   * Comments are enclosed/prefixed using C/C++ syntax.
+   * Date-notation: crossing_guard expects European notation: "DD.MM.YYYY"
+*/
+
+
+/*
+//  This example lists available parameters for a person.
+    <person_s>
+        name:<st_s>"pat doe"</>
+        preferences:<preferences_s>
+            
+            // Weighting is optional and causes the person to be assigned more/less frequently than the average.
+            weight: <f3_t>1.0</>
+            
+            // This specifies a weekly availability pattern. If you leave it out, the person is deemed available
+            // any day.
+            weekday_availability:<weekday_availability_s>
+                weekdays:<st_s>"mo, tu, we, th, fr"</>
+                weekly_period:<sz_t>1</>                // 1: every week, 2 every 2nd week, 3: every third week, ...
+                including_week:<sz_t>1</>               // weeknumber included in weekly period (meaningless when period is 1)
+            </>
+
+            // True: Crossing guard will choose always the same weekday within the person's preferences.
+            always_same_workday: <bl_t>true</>
+
+			// Additional dates (if applicable)
+            included_dates:<date_arr_s>  
+                <date_s>:<st_s>"30.04.2018"</></>
+            </>
+
+			// Excluded dates (supersedes inclusions)
+            excluded_dates:<date_arr_s>  
+                <date_s>:<st_s>"29.04.2018"</></>
+            </>
+
+			// Excluded periods (supersedes inclusions)
+            excluded_periods:<period_arr_s> 
+                <period_s>
+                    first: <date_s>:<st_s>"08.01.2018"</></>
+                    last:  <date_s>:<st_s>"31.01.2018"</></>
+                </>
+            </>
+        </>
+        
+		// Already assigned dates:
+		// This tells crossing_guard which dates have been served in the past.
+		// It is typically used for a subsequent period assignment (possibly with an altered 
+		// set of people and/or theyr preferences). 
+		// Crossing guard will take already served dates into accont to calculate a fair assignment. 
+		// Only the last date in the past needs actually be specified.
+        assigned_dates:<date_arr_s>  
+            <date_s>:<st_s>"17.12.2017"</></>
+        </>
+    </>
+*/
+
+/* 
+   Below is a list of placeholder-names with preferences to demonstrate an actual set.
+*/
+
+<assignment_s>
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"alice"</>
+        preferences:<preferences_s>
+            weekday_availability:<weekday_availability_s>
+                weekdays:<st_s>"tu, fr"</>
+                weekly_period:<sz_t>2</>
+                including_week:<sz_t>1</>
+            </>
+        </>
+    </>
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"bob"</>
+        preferences:<preferences_s>
+            weight: <f3_t>0.5</>
+            weekday_availability:<weekday_availability_s>
+                weekdays:<st_s>"mo, tu, we, th, fr"</>
+                weekly_period:<sz_t>1</>
+                including_week:<sz_t>1</>
+            </>
+        </>
+    </>
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"carol"</>
+        preferences:<preferences_s>
+            weekday_availability:<weekday_availability_s>
+                weekdays:<st_s>"tu"</>
+                weekly_period:<sz_t>1</>
+                including_week:<sz_t>1</>
+            </>
+        </>
+    </>
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"dave"</>
+        preferences:<preferences_s>
+            weekday_availability:<weekday_availability_s>
+                weekdays:<st_s>"we"</>
+                weekly_period:<sz_t>2</>
+                including_week:<sz_t>2</>
+            </>
+        </>
+    </>
+
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"grace"</>
+        preferences:<preferences_s>
+            excluded_periods:<period_arr_s>
+                <period_s>
+                    first: <date_s>:<st_s>"08.01.2018"</></>
+                    last:  <date_s>:<st_s>"31.01.2018"</></>
+                </>
+            </>
+        </>
+    </>
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"oscar"</>
+        preferences:<preferences_s>
+            always_same_workday: <bl_t>false</>
+        </>
+    </>
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"victor"</>
+        preferences:<preferences_s>
+            always_same_workday: <bl_t>false</>
+        </>
+    </>
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"wendy"</>
+        preferences:<preferences_s>
+            always_same_workday: <bl_t>false</>
+        </>
+    </>
+
+/******************************************************************************/
+
+    <person_s>
+        name:<st_s>"judy"</>
+        preferences:<preferences_s>
+            excluded_dates:<date_arr_s>
+                <date_s>
+                    :<st_s>"28.03.2018"</>
+                </>
+            </>
+            excluded_periods:<period_arr_s>
+            </>
+        </>
+    </>
+
+/******************************************************************************/
+
+    <person_s> name:<st_s>"erin"</> </>
+
+/******************************************************************************/
+
+</>
+
