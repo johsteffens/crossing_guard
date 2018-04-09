@@ -38,9 +38,9 @@ Crossing-Guard will take the the two files and calculate the assignment for all 
       * This creates the executable binary file `crossing_guard`.
 
 ### Example
-Folder `example` contains an example configuration with some fantasy-names.
-   * config.txt contains information about schooldays, vacation and holidays.
-   * assignment.txt contains information about volunteers and their preferences.
+Folder [example](https://github.com/johsteffens/crossing_guard/tree/master/example) contains an example configuration with some fantasy-names.
+   * [config.txt](https://github.com/johsteffens/crossing_guard/blob/master/example/config.txt) contains information about schooldays, vacation and holidays.
+   * [assignment.txt](https://github.com/johsteffens/crossing_guard/blob/master/example/assignment.txt) contains information about volunteers and their preferences.
 Both text files are written in beth-markup-format, which is a editable markup syntax used for data serialization. It has some resemblance to XML and is hopefully easy enough to understand and edit. The files contain explanatory inline comments.
    
    * Run `crossing_guard`
@@ -50,7 +50,7 @@ Both text files are written in beth-markup-format, which is a editable markup sy
       * This will output the assignment in text form.
       
    * Run `crossing_guard config.txt assignment.txt 01.01.2018 31.03.2018 -format html_table > table.html`
-      * This will produce the html-table: table.html. (Currently that format is available only in German language).
+      * This will produce the html-table: [table.html](https://github.com/johsteffens/crossing_guard/blob/master/example/table.html). (Currently that format is available only in German language).
 
 ## License
 The source code in this repository is licensed under the [Apache 2.0 License](https://github.com/johsteffens/crossing_guard/blob/master/LICENSE).
