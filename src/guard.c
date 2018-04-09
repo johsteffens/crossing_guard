@@ -746,7 +746,7 @@ st_s* assigner_s_show_calendar( const assigner_s* o, const assignment_s* src, pe
     bcore_life_s* l = bcore_life_s_create();
     st_s* st_first = string_from_cday( period.first.cday );
     st_s* st_last  = string_from_cday( period.last.cday );
-    st_s_push_fa( log, "Period #sz_t: (#sc_t - #sc_t)\n", st_first->sc, st_last->sc );
+    st_s_push_fa( log, "Period: #sc_t - #sc_t\n", st_first->sc, st_last->sc );
     st_s_discard( st_first );
     st_s_discard( st_last );
 

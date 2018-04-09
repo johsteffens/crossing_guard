@@ -82,14 +82,14 @@ st_s* process( const st_s* assigner_file, const st_s* assignment_file, period_s 
 int main( int argc, const char** argv )
 {
     bcore_register_signal_handler( guard_signal_handler );
-    bcore_msg( "Crossing Guard - Copyright (C) 2017 Johannes B. Steffens\n" );
 
     if( argc < 5 )
     {
-        bcore_msg( "No input.\n" );
+        bcore_msg( "Crossing Guard - Copyright (C) 2017, 2018 Johannes B. Steffens\n" );
+        bcore_msg( "Insufficient input.\n" );
         bcore_msg( "Usage:\n" );
-        bcore_msg( "   crossing_guard <config_file> <assignment_file> <start_date> <end_date> [-show {dates|persons|assignment|calendar} ]\n" );
-        bcore_msg( "Example: crossing_guard config.txt assignment.txt -show persons\n" );
+        bcore_msg( "   crossing_guard <config_file> <assignment_file> <start_date> <end_date> [-format {dates|persons|assignment|calendar|html_table} ]\n" );
+        bcore_msg( "Example: crossing_guard config.txt assignment.txt 01.01.2018 31.03.2018 -format persons\n" );
     }
     else
     {
