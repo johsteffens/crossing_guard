@@ -30,11 +30,14 @@ Crossing-Guard will take the the two files and calculate a fair assignment for a
    * Library `pthread` of the POSIX.1c standard.
 
 ### Build
-   * Download [beth](https://github.com/johsteffens/beth) and [crossing_guard](https://github.com/johsteffens/crossing_guard). 
-   * Unpack both in the same folder. (This should create respective sub-folders `beth-master` and `crossing_guard-master`)
+   * Clone [beth](https://github.com/johsteffens/beth) and [crossing_guard](https://github.com/johsteffens/crossing_guard):
+      * `git clone https://github.com/johsteffens/beth.git`
+      * `git clone https://github.com/johsteffens/crossing_guard.git`
+      * *(Ensure both reprositories have the same root folder)*
    * In a terminal ...
-      * enter folder: `cd crossing_guard-master/build`.
-      * run: `make`. This produces the binary file `crossing_guard`.
+      * enter folder crossing_guard/build: `cd crossing_guard/build`.
+      * run: `make`. 
+      * This creates the executale binary file `crossing_guard`.
 
 ## License
 The source code in this repository is licensed under the [Apache 2.0 License](https://github.com/johsteffens/crossing_guard/blob/master/LICENSE).
