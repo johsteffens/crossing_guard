@@ -2,7 +2,7 @@ CC      = gcc
 CFLAGS  = -Wall -O3 -std=c11 
 LDFLAGS = -lm -lpthread
 
-BETH_SRCS    = ../../beth-master/lib
+BETH_SRCS    = ../../beth/lib
 CROSSING_GUARD_SRCS = ../src
 
 BETH_BCORE_SRCS = $(BETH_SRCS)/bcore
@@ -21,7 +21,11 @@ HDRS = \
 TARGET = crossing_guard
 
 $(TARGET): $(SRCS) $(HDRS)
+ifeq ($(wildcard $(BETH_BCORE_SRCS)/*.c),)
+	@echo "Sources of beth-library missing: $(BETH_BCORE_SRCS). Clone from https://github.com/johsteffens/beth.git"
+else
 	$(CC) -o $@ $(SRCS) $(CFLAGS) $(INCLUDES) $(LDFLAGS) 
+endif
 
 .PHONY: clean
 
