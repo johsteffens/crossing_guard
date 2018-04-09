@@ -8,7 +8,7 @@ Crossing-Guard is based on project [beth](https://github.com/johsteffens/beth).
 ## How it works
 
 ### The Problem
-Say there is a specific task that is to be performed daily or weekly on certain weekdays by one person. For example: Patrolling the school crossing on all schooldays during rush hour. You've got a number of volunteers with individual preferences/availabilities. Those people are to be assigned fairly observing individual preferences.
+Say there is a specific task that is to be performed daily or weekly on certain weekdays by one person. For example: Patrolling the school crossing on all schooldays during rush hour. You've got a number of volunteers with individual preferences/availabilities. The task is to be assigned to those people with a fair (equal) distribution.
 
 ### The Solution
 Create two data files:
