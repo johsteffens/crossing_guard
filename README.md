@@ -55,7 +55,7 @@ Both text files are written in beth-markup-format, which is a editable markup sy
 ## Technical Details
    * Calendar conversions (day, week, month, year) adhere to the ISO 8601 standard.
    * Date notation: DD.MM.YYYY; Supported date coverage: 01.03.1900 - 28.02.2099
-   * Score function per person: d*w / ( (d*w)^2 + 1 )
+   * Score function per person: (dw)^2 / ( (dw)^2 + 1 )
       * d: distance to last assgnment (in days)
       * w: weight (near 1.0 or larger)
    * Objective: Maximizing average score
