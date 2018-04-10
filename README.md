@@ -54,12 +54,13 @@ Both text files are written in beth-markup-format, which is a editable markup sy
 
 ## Technical Details
    * Calendar conversions (day, week, month, year) adhere to the ISO 8601 standard.
-   * Date notation: DD.MM.YYYY; Supported date coverage: 01.03.1900 - 28.02.2099
-   * Score function per person: (dw)^2 / ( (dw)^2 + 1 )
-      * d: distance to last assgnment (in days)
+   * Date notation: DD.MM.YYYY
+   * Date coverage: 01.03.1900 - 28.02.2099
+   * Score function (per person): (dw)<sup>2</sup> / ( (dw)<sup>2</sup> + 1 )
+      * d: distance to last assignment (in days)
       * w: weight (near 1.0 or larger)
    * Objective: Maximizing average score
-   * Strategy: Auction algorithm on multiple randomly permuted lists of candiadtes.
+   * Strategy: Auction algorithm on multiple randomly permuted lists of candidates.
 
 ## License
 The source code in this repository is licensed under the [Apache 2.0 License](https://github.com/johsteffens/crossing_guard/blob/master/LICENSE).
