@@ -52,6 +52,15 @@ Both text files are written in beth-markup-format, which is a editable markup sy
    * Run `crossing_guard config.txt assignment.txt 01.01.2018 31.03.2018 -format html_table > table.html`
       * This will produce the html-table: [table.html](https://github.com/johsteffens/crossing_guard/blob/master/example/table.html). (Currently that format is available only in German language).
 
+## Technical Details
+   * Calendar conversions (day, week, month, year) adhere to the ISO 8601 standard.
+   * Date notation: DD.MM.YYYY; Supported date coverage: 01.03.1900 - 28.02.2099
+   * Score function per person: d*w / ( (d*w)^2 + 1 )
+      * d: distance to last assgnment (in days)
+      * w: weight (near 1.0 or larger)
+   * Objective: Maximizing average score
+   * Strategy: Auction algorithm on multiple randomly permuted lists of candiadtes.
+
 ## License
 The source code in this repository is licensed under the [Apache 2.0 License](https://github.com/johsteffens/crossing_guard/blob/master/LICENSE).
 
