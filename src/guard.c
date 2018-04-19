@@ -1096,23 +1096,23 @@ vd_t guard_signal_handler( const bcore_signal_s* o )
     {
         case TYPEOF_init1:
         {
-            BCORE_REGISTER_FLECT( dmy_s );
-            BCORE_REGISTER_FLECT( date_s );
+            BCORE_REGISTER_OBJECT( dmy_s );
+            BCORE_REGISTER_OBJECT( date_s );
             BCORE_REGISTER_FUNC(  date_s_set_ );
             BCORE_REGISTER_FUNC(  date_s_get_ );
             BCORE_REGISTER_FUNC(  date_s_copy_typed );
-            BCORE_REGISTER_FLECT( date_arr_s );
-            BCORE_REGISTER_FLECT( period_s );
-            BCORE_REGISTER_FLECT( period_arr_s );
-            BCORE_REGISTER_FLECT( weekday_availability_s );
+            BCORE_REGISTER_OBJECT( date_arr_s );
+            BCORE_REGISTER_OBJECT( period_s );
+            BCORE_REGISTER_OBJECT( period_arr_s );
+            BCORE_REGISTER_OBJECT( weekday_availability_s );
             BCORE_REGISTER_FUNC(  weekday_availability_s_get_weekdays );
             BCORE_REGISTER_FUNC(  weekday_availability_s_set_weekdays );
-            BCORE_REGISTER_FLECT( preferences_s );
-            BCORE_REGISTER_FLECT( person_s );
+            BCORE_REGISTER_OBJECT( preferences_s );
+            BCORE_REGISTER_OBJECT( person_s );
             BCORE_REGISTER_FUNC(  person_s_get_assigned_weekday );
             BCORE_REGISTER_FUNC(  person_s_set_assigned_weekday );
-            BCORE_REGISTER_FLECT( assignment_s );
-            BCORE_REGISTER_FLECT( assigner_s );
+            BCORE_REGISTER_OBJECT( assignment_s );
+            BCORE_REGISTER_OBJECT( assigner_s );
         }
         break;
 
