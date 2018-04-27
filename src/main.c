@@ -21,7 +21,7 @@ void selftest()
     bcore_run_signal_selftest( typeof( "all" ), NULL );
 
     sr_s pl = bcore_inst_t_create_sr( typeof( "assignment_s" ) );
-    bcore_array_q_push( &pl, bcore_inst_t_create_sr( typeof( "person_s" ) ) );
+    bcore_array_r_push( &pl, bcore_inst_t_create_sr( typeof( "person_s" ) ) );
     bcore_txt_ml_to_stdout( pl );
 
     bcore_txt_ml_to_stdout( bcore_inst_t_create_sr( typeof( "assigner_s" ) ) );

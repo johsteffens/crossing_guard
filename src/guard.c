@@ -596,7 +596,7 @@ static assignment_s* assigner_s_try_assignment( const assigner_s* o, const assig
 
     {
         bcore_arr_sz_s* permutation = bcore_arr_sz_s_create_random_permutation( bcore_xsg_u2, rseed, assignment->size );
-        bcore_array_aware_reorder( assignment, permutation );
+        bcore_array_a_reorder( (bcore_array*)assignment, permutation );
         bcore_arr_sz_s_discard( permutation );
     }
 
@@ -623,7 +623,7 @@ static assignment_s* assigner_s_try_assignment( const assigner_s* o, const assig
         if( best_idx < assignment->size )
         {
             person_s* p = assignment->data[ best_idx ];
-            bcore_array_aware_push( &p->assigned_dates, sr_sz( cday ) );
+            bcore_array_a_push( (bcore_array*)&p->assigned_dates, sr_sz( cday ) );
             if( p->assigned_nweekday >= 7 && p->preferences.always_same_workday ) p->assigned_nweekday = wday;
             score_l += best_match;
         }
@@ -704,7 +704,7 @@ st_s* assigner_s_show_persons( const assigner_s* o, const assignment_s* src )
 {
     st_s* log = st_s_create();
     assignment_s* assignment = assignment_s_clone( src );
-    bcore_array_aware_sort( assignment, 0, -1, 1 );
+    bcore_array_a_sort( (bcore_array*)assignment, 0, -1, 1 );
 
     for( sz_t i = 0; i < assignment->size; i++ )
     {
