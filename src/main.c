@@ -22,9 +22,9 @@ void selftest()
 
     sr_s pl = bcore_inst_t_create_sr( typeof( "assignment_s" ) );
     bcore_array_r_push( &pl, bcore_inst_t_create_sr( typeof( "person_s" ) ) );
-    bcore_txt_ml_to_stdout( pl );
+    bcore_txt_ml_x_to_stdout( pl );
 
-    bcore_txt_ml_to_stdout( bcore_inst_t_create_sr( typeof( "assigner_s" ) ) );
+    bcore_txt_ml_x_to_stdout( bcore_inst_t_create_sr( typeof( "assigner_s" ) ) );
 }
 
 st_s* process( const st_s* assigner_file, const st_s* assignment_file, period_s period, const st_s* output_format )
@@ -58,7 +58,7 @@ st_s* process( const st_s* assigner_file, const st_s* assignment_file, period_s 
     }
     else if( st_s_equal_sc( output_format, "assignment" ) )
     {
-        bcore_txt_ml_to_stdout( sr_awc( final_assignment ) );
+        bcore_txt_ml_x_to_stdout( sr_awc( final_assignment ) );
     }
     else if( st_s_equal_sc( output_format, "calendar" ) )
     {
