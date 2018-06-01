@@ -26,7 +26,7 @@ static sc_t dmy_s_def = "dmy_s = "
     "sz_t year;  "
 "}";
 
-BCORE_DEFINE_OBJECT_INST( dmy_s, dmy_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( dmy_s, dmy_s_def )
 
 st_s* string_from_date( const dmy_s* o )
 {
@@ -282,7 +282,7 @@ static sc_t date_s_def = "date_s = "
     "func bcore_fp_copy_typed copy_typed = date_s_copy_typed;"
 "}";
 
-BCORE_DEFINE_OBJECT_INST( date_s, date_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( date_s, date_s_def )
 
 static void date_s_set_( vd_t obj, sr_s string )
 {
@@ -320,7 +320,7 @@ static sc_t date_arr_s_def = "date_arr_s = "
     "date_s [] arr;"
 "}";
 
-BCORE_DEFINE_OBJECT_INST( date_arr_s, date_arr_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( date_arr_s, date_arr_s_def )
 
 bl_t date_arr_s_matches( const date_arr_s* o, sz_t cday )
 {
@@ -340,7 +340,7 @@ static sc_t period_s_def = "period_s = "
     "date_s last;  "
 "}";
 
-BCORE_DEFINE_OBJECT_INST( period_s, period_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( period_s, period_s_def )
 
 bl_t period_s_inside( const period_s* o, sz_t cday )
 {
@@ -355,7 +355,7 @@ static sc_t period_arr_s_def = "period_arr_s = "
     "period_s [] arr;"
 "}";
 
-BCORE_DEFINE_OBJECT_INST( period_arr_s, period_arr_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( period_arr_s, period_arr_s_def )
 
 bl_t period_arr_s_inside( const period_arr_s* o, sz_t cday )
 {
@@ -380,7 +380,7 @@ static sc_t weekday_availability_s_def = "weekday_availability_s = "
     "func bcore_fp_set set_weekdays = weekday_availability_s_set_weekdays;"
 "}";
 
-BCORE_DEFINE_OBJECT_INST( weekday_availability_s, weekday_availability_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( weekday_availability_s, weekday_availability_s_def )
 
 static void weekday_availability_s_set_weekdays( vd_t obj, sr_s src )
 {
@@ -460,7 +460,7 @@ static sc_t preferences_s_def = "preferences_s = "
     "period_arr_s excluded_periods;"
 "}";
 
-BCORE_DEFINE_OBJECT_INST( preferences_s, preferences_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( preferences_s, preferences_s_def )
 
 static f3_t preferences_s_match( const preferences_s* o, sz_t cday, sz_t wnum )
 {
@@ -486,7 +486,7 @@ static sc_t person_s_def = "person_s = "
     "func bcore_fp_set set_assigned_weekday = person_s_set_assigned_weekday;"
 "}";
 
-BCORE_DEFINE_OBJECT_INST( person_s, person_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( person_s, person_s_def )
 
 static void person_s_set_assigned_weekday( vd_t obj, sr_s wd )
 {
@@ -545,7 +545,7 @@ static sc_t assignment_s_def = "assignment_s = "
     "person_s * [] arr; "
 "}";
 
-BCORE_DEFINE_OBJECT_INST( assignment_s, assignment_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( assignment_s, assignment_s_def )
 
 static sz_t assignment_s_get_assignment_index( const assignment_s* o, sz_t cday )
 {
@@ -576,7 +576,7 @@ static sc_t assigner_s_def = "assigner_s = "
     "sz_t cycles = 128;  "
 "}";
 
-BCORE_DEFINE_OBJECT_INST( assigner_s, assigner_s_def )
+BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( assigner_s, assigner_s_def )
 
 // returns 0 in case of schoolday, 1 in case of vacation, 2 in case of holiday
 static s2_t assigner_s_free_day( const assigner_s* o, sz_t cday )

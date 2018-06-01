@@ -26,7 +26,7 @@ typedef struct dmy_s
     sz_t month;
     sz_t year;
 } dmy_s;
-BCORE_DECLARE_OBJECT( dmy_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( dmy_s )
 
 void dmy_s_check_plausibility( const dmy_s* o );
 st_s*   string_from_dmy_s( const dmy_s* o );
@@ -61,7 +61,7 @@ typedef struct date_s
 {
     sz_t cday;
 } date_s;
-BCORE_DECLARE_OBJECT( date_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( date_s )
 
 /**********************************************************************************************************************/
 
@@ -79,7 +79,7 @@ typedef struct date_arr_s
         };
     };
 } date_arr_s;
-BCORE_DECLARE_OBJECT( date_arr_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( date_arr_s )
 
 /**********************************************************************************************************************/
 
@@ -90,7 +90,7 @@ typedef struct period_s
     date_s first;
     date_s last;
 } period_s;
-BCORE_DECLARE_OBJECT( period_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( period_s )
 
 bl_t period_s_inside( const period_s* o, sz_t cday );
 
@@ -110,7 +110,7 @@ typedef struct period_arr_s
         };
     };
 } period_arr_s;
-BCORE_DECLARE_OBJECT( period_arr_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( period_arr_s )
 
 /**********************************************************************************************************************/
 
@@ -122,7 +122,7 @@ typedef struct weekday_availability_s
     sz_t weekly_period;  // 1: each week, 2 every other week, 3 every third week, etc
     sz_t including_week; // this week number is included in period;
 } weekday_availability_s;
-BCORE_DECLARE_OBJECT( weekday_availability_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( weekday_availability_s )
 
 /**********************************************************************************************************************/
 
@@ -137,7 +137,7 @@ typedef struct preferences_s
     date_arr_s   excluded_dates;    // exclusions supersede inclusions
     period_arr_s excluded_periods;  // exclusions supersede inclusions
 } preferences_s;
-BCORE_DECLARE_OBJECT( preferences_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( preferences_s )
 
 /**********************************************************************************************************************/
 
@@ -150,7 +150,7 @@ typedef struct person_s
     sz_t           assigned_nweekday;
     date_arr_s     assigned_dates;
 } person_s;
-BCORE_DECLARE_OBJECT( person_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( person_s )
 
 /**********************************************************************************************************************/
 
@@ -168,7 +168,7 @@ typedef struct assignment_s
         };
     };
 } assignment_s;
-BCORE_DECLARE_OBJECT( assignment_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( assignment_s )
 
 /**********************************************************************************************************************/
 
@@ -188,7 +188,7 @@ typedef struct assigner_s
     u2_t rseed;
     sz_t cycles;
 } assigner_s;
-BCORE_DECLARE_OBJECT( assigner_s )
+BCORE_DECLARE_FUNCTIONS_OBJ( assigner_s )
 
 assignment_s* assigner_s_create_assignment( const assigner_s* o, const assignment_s* src, period_s period );
 
