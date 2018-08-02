@@ -21,9 +21,9 @@
 static sc_t dmy_s_def = "dmy_s = "
 "{"
     "aware_t _;  "
-    "sz_t day;   "
-    "sz_t month; "
-    "sz_t year;  "
+    "uz_t day;   "
+    "uz_t month; "
+    "uz_t year;  "
 "}";
 
 BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( dmy_s, dmy_s_def )
@@ -36,12 +36,12 @@ st_s* string_from_date( const dmy_s* o )
 dmy_s* date_from_string( const st_s* string )
 {
     dmy_s* dt = dmy_s_create();
-    st_s_parse_fa( string, 0, -1, "#sz_t.#sz_t.#sz_t", &dt->day, &dt->month, &dt->year );
+    st_s_parse_fa( string, 0, -1, "#uz_t.#uz_t.#uz_t", &dt->day, &dt->month, &dt->year );
     dmy_s_check_plausibility( dt );
     return dt;
 }
 
-st_s* string_from_cday( sz_t cday )
+st_s* string_from_cday( uz_t cday )
 {
     dmy_s* dt = dmy_s_from_cday( cday );
     st_s* s = string_from_date( dt );
@@ -49,7 +49,7 @@ st_s* string_from_cday( sz_t cday )
     return s;
 }
 
-st_s* l_string_from_cday( bcore_life_s* l, sz_t cday )
+st_s* l_string_from_cday( bcore_life_s* l, uz_t cday )
 {
     st_s* s = string_from_cday( cday );
     bcore_life_s_push_aware( l, s );
@@ -85,15 +85,15 @@ void dmy_s_check_plausibility( const dmy_s* o )
     }
 }
 
-sz_t cday_from_dmy_s( const dmy_s* o )
+uz_t cday_from_dmy_s( const dmy_s* o )
 {
     dmy_s_check_plausibility( o );
 
-    sz_t yr = o->year - 1900;
-    sz_t leap_days = 1 + ( yr / 4 );
+    uz_t yr = o->year - 1900;
+    uz_t leap_days = 1 + ( yr / 4 );
     if( ( o->month < 3 ) && ( yr % 4 == 0 ) ) leap_days--;
 
-    sz_t sum = yr * 365 + leap_days;
+    uz_t sum = yr * 365 + leap_days;
 
     switch( o->month - 1 )
     {
@@ -120,27 +120,27 @@ sz_t cday_from_dmy_s( const dmy_s* o )
     return sum;
 }
 
-sz_t cday_from_dmy_sc( sc_t sc )
+uz_t cday_from_dmy_sc( sc_t sc )
 {
     dmy_s* dt = date_from_sc( sc );
-    sz_t cday = cday_from_dmy_s( dt );
+    uz_t cday = cday_from_dmy_s( dt );
     dmy_s_discard( dt );
     return cday;
 }
 
-dmy_s dmy_from_cday( sz_t cd )
+dmy_s dmy_from_cday( uz_t cd )
 {
-    sz_t lyr = cd / ( 365 * 4 + 1 );
-    sz_t ldy = cd - lyr * ( 365 * 4 + 1 );
-    sz_t qyr = ldy / 365;
+    uz_t lyr = cd / ( 365 * 4 + 1 );
+    uz_t ldy = cd - lyr * ( 365 * 4 + 1 );
+    uz_t qyr = ldy / 365;
     qyr = ( qyr > 3 ) ? 3 : qyr;
-    sz_t yr = ( lyr * 4 ) + qyr;
-    sz_t dy = ldy - qyr * 365;
-    sz_t mt = 3;
+    uz_t yr = ( lyr * 4 ) + qyr;
+    uz_t dy = ldy - qyr * 365;
+    uz_t mt = 3;
 
-    sz_t dtbl[] = { 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31 };
+    uz_t dtbl[] = { 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31 };
 
-    for( sz_t i = 0; i < 11; i++ )
+    for( uz_t i = 0; i < 11; i++ )
     {
         if( dtbl[ i ] > dy ) break;
         dy -= dtbl[ i ];
@@ -155,32 +155,32 @@ dmy_s dmy_from_cday( sz_t cd )
     return o;
 }
 
-dmy_s* dmy_s_from_cday( sz_t cd )
+dmy_s* dmy_s_from_cday( uz_t cd )
 {
     dmy_s* o  = dmy_s_create();
     *o = dmy_from_cday( cd );
     return o;
 }
 
-sz_t wday_from_cday( sz_t cd )
+uz_t wday_from_cday( uz_t cd )
 {
     return ( cd + 3 ) % 7;
 }
 
-sz_t wday_from_date( const dmy_s* dt )
+uz_t wday_from_date( const dmy_s* dt )
 {
     return wday_from_cday( cday_from_dmy_s( dt ) );
 }
 
-sz_t wday_from_dmy_sc( sc_t sc )
+uz_t wday_from_dmy_sc( sc_t sc )
 {
     dmy_s* dt = date_from_sc( sc );
-    sz_t wday = wday_from_date( dt );
+    uz_t wday = wday_from_date( dt );
     dmy_s_discard( dt );
     return wday;
 }
 
-sc_t sc_from_wday( sz_t wday )
+sc_t sc_from_wday( uz_t wday )
 {
     switch( wday )
     {
@@ -196,7 +196,7 @@ sc_t sc_from_wday( sz_t wday )
     return "";
 }
 
-sz_t wday_from_sc( sc_t sc )
+uz_t wday_from_sc( sc_t sc )
 {
     if( bcore_strcmp( sc, "mo" ) == 0 ) return 0;
     if( bcore_strcmp( sc, "tu" ) == 0 ) return 1;
@@ -209,12 +209,12 @@ sz_t wday_from_sc( sc_t sc )
     return 0;
 }
 
-sz_t wcnt_from_cday( sz_t cday )
+uz_t wcnt_from_cday( uz_t cday )
 {
     return ( cday + 3 ) / 7;
 }
 
-sz_t wnum_from_date( const dmy_s* dt )
+uz_t wnum_from_date( const dmy_s* dt )
 {
     dmy_s dt_l;
     dmy_s_init( &dt_l );
@@ -222,14 +222,14 @@ sz_t wnum_from_date( const dmy_s* dt )
     dt_l.month = 1;
     dt_l.day   = 1;
 
-    sz_t first_cday = cday_from_dmy_s( &dt_l );
-    sz_t first_wday = wday_from_cday( first_cday );
+    uz_t first_cday = cday_from_dmy_s( &dt_l );
+    uz_t first_wday = wday_from_cday( first_cday );
 
     // monday of week of first_cday
-    sz_t mo1_cday = first_cday - first_wday;
+    uz_t mo1_cday = first_cday - first_wday;
     if( first_wday > 3 ) mo1_cday += 7;
 
-    sz_t cur_cday = cday_from_dmy_s( dt );
+    uz_t cur_cday = cday_from_dmy_s( dt );
 
     if( cur_cday < mo1_cday ) // last week of last year
     {
@@ -239,7 +239,7 @@ sz_t wnum_from_date( const dmy_s* dt )
     }
     else
     {
-        sz_t wnum = 1 + ( cur_cday - mo1_cday ) / 7;
+        uz_t wnum = 1 + ( cur_cday - mo1_cday ) / 7;
         if( wnum == 53 )
         {
             if( ( first_wday == 3 ) || ( ( ( dt_l.year % 4 ) == 0 ) && ( first_wday == 2 ) ) )
@@ -255,18 +255,18 @@ sz_t wnum_from_date( const dmy_s* dt )
     }
 }
 
-sz_t wnum_from_cday( sz_t cday )
+uz_t wnum_from_cday( uz_t cday )
 {
     dmy_s* dt = dmy_s_from_cday( cday );
-    sz_t wnum = wnum_from_date( dt );
+    uz_t wnum = wnum_from_date( dt );
     dmy_s_discard( dt );
     return wnum;
 }
 
-sz_t wnum_from_dmy_sc( sc_t sc )
+uz_t wnum_from_dmy_sc( sc_t sc )
 {
     dmy_s* dt = date_from_sc( sc );
-    sz_t wnum = wnum_from_date( dt );
+    uz_t wnum = wnum_from_date( dt );
     dmy_s_discard( dt );
     return wnum;
 }
@@ -276,7 +276,7 @@ sz_t wnum_from_dmy_sc( sc_t sc )
 static sc_t date_s_def = "date_s = "
 "{"
     "shell st_s;"
-    "hidden sz_t cday;"
+    "hidden uz_t cday;"
     "func bcore_fp_get        get_       = date_s_get_;"
     "func bcore_fp_set        set_       = date_s_set_;"
     "func bcore_fp_copy_typed copy_typed = date_s_copy_typed;"
@@ -302,9 +302,9 @@ static sr_s date_s_get_( vc_t obj )
 
 static void date_s_copy_typed( date_s* o, tp_t type, vc_t src )
 {
-    if( type == TYPEOF_sz_t )
+    if( type == TYPEOF_uz_t )
     {
-        o->cday = *( const sz_t* )src;
+        o->cday = *( const uz_t* )src;
     }
     else
     {
@@ -322,9 +322,9 @@ static sc_t date_arr_s_def = "date_arr_s = "
 
 BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( date_arr_s, date_arr_s_def )
 
-bl_t date_arr_s_matches( const date_arr_s* o, sz_t cday )
+bl_t date_arr_s_matches( const date_arr_s* o, uz_t cday )
 {
-    for( sz_t i = 0; i < o->size; i++ )
+    for( uz_t i = 0; i < o->size; i++ )
     {
         if( o->data[ i ].cday == cday ) return true;
     }
@@ -342,7 +342,7 @@ static sc_t period_s_def = "period_s = "
 
 BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( period_s, period_s_def )
 
-bl_t period_s_inside( const period_s* o, sz_t cday )
+bl_t period_s_inside( const period_s* o, uz_t cday )
 {
     return ( cday >= o->first.cday && cday <= o->last.cday );
 }
@@ -357,9 +357,9 @@ static sc_t period_arr_s_def = "period_arr_s = "
 
 BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( period_arr_s, period_arr_s_def )
 
-bl_t period_arr_s_inside( const period_arr_s* o, sz_t cday )
+bl_t period_arr_s_inside( const period_arr_s* o, uz_t cday )
 {
-    for( sz_t i = 0; i < o->size; i++ )
+    for( uz_t i = 0; i < o->size; i++ )
     {
         if( period_s_inside( &o->data[ i ], cday ) ) return true;
     }
@@ -373,8 +373,8 @@ static sc_t weekday_availability_s_def = "weekday_availability_s = "
     "aware_t _;                      "
     "hidden u0_t weekday_flags = 31; " // mo: &1, tu: &2, we: &4, ...
     "shell st_s weekdays;            " // "mo, tu, we, .."
-    "sz_t weekly_period        = 1;  " // 1: each week, 2 every other week, 3 every third week, etc
-    "sz_t including_week       = 1;  " // this week number is included in period;
+    "uz_t weekly_period        = 1;  " // 1: each week, 2 every other week, 3 every third week, etc
+    "uz_t including_week       = 1;  " // this week number is included in period;
 
     "func bcore_fp_get get_weekdays = weekday_availability_s_get_weekdays;"
     "func bcore_fp_set set_weekdays = weekday_availability_s_set_weekdays;"
@@ -386,8 +386,8 @@ static void weekday_availability_s_set_weekdays( vd_t obj, sr_s src )
 {
     weekday_availability_s* o = obj;
     st_s* s = src.o;
-    sz_t idx = 0;
-    sz_t count = 1;
+    uz_t idx = 0;
+    uz_t count = 1;
     o->weekday_flags = 0;
     while( idx < s->size )
     {
@@ -400,8 +400,8 @@ static void weekday_availability_s_set_weekdays( vd_t obj, sr_s src )
             idx = st_s_parse_fa( s, idx, -1, " " );
         }
 
-        sz_t wday = 7;
-        for( sz_t i = 0; i < 7; i++ )
+        uz_t wday = 7;
+        for( uz_t i = 0; i < 7; i++ )
         {
             sc_t wday_sc = sc_from_wday( i );
             if( ( bcore_strcmp( wday_sc, s->sc + idx ) & ~1 ) == 0 ) wday = i;
@@ -424,8 +424,8 @@ static sr_s weekday_availability_s_get_weekdays( vc_t obj )
 {
     const weekday_availability_s* o = obj;
     st_s* s = st_s_create();
-    sz_t count = 0;
-    for( sz_t i = 0; i < 7; i++ )
+    uz_t count = 0;
+    for( uz_t i = 0; i < 7; i++ )
     {
         if( o->weekday_flags & ( 1 << i ) )
         {
@@ -437,12 +437,12 @@ static sr_s weekday_availability_s_get_weekdays( vc_t obj )
     return sr_asd( s );
 }
 
-static bl_t weekday_availability_s_match( const weekday_availability_s* o, sz_t cday, sz_t wnum )
+static bl_t weekday_availability_s_match( const weekday_availability_s* o, uz_t cday, uz_t wnum )
 {
-    sz_t wday = wday_from_cday( cday );
+    uz_t wday = wday_from_cday( cday );
     if( ( o->weekday_flags & ( 1 << wday ) ) == 0 ) return false;
     if( o->weekly_period <= 1 ) return true;
-    sz_t wdiff = wnum > o->including_week ? wnum - o->including_week : o->including_week - wnum;
+    uz_t wdiff = wnum > o->including_week ? wnum - o->including_week : o->including_week - wnum;
     if( wdiff % o->weekly_period == 0 ) return true;
     return false;
 }
@@ -462,7 +462,7 @@ static sc_t preferences_s_def = "preferences_s = "
 
 BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( preferences_s, preferences_s_def )
 
-static f3_t preferences_s_match( const preferences_s* o, sz_t cday, sz_t wnum )
+static f3_t preferences_s_match( const preferences_s* o, uz_t cday, uz_t wnum )
 {
     if( date_arr_s_matches( &o->excluded_dates, cday      ) ) return 0;
     if( period_arr_s_inside( &o->excluded_periods, cday   ) ) return 0;
@@ -478,7 +478,7 @@ static sc_t person_s_def = "person_s = "
     "aware_t _;                            "
     "st_s name;                            "
     "preferences_s  preferences;           "
-    "hidden sz_t    assigned_nweekday = 7; " // 7 means no specific day assigned
+    "hidden uz_t    assigned_nweekday = 7; " // 7 means no specific day assigned
     "shell  st_s    assigned_weekday;      "
     "date_arr_s     assigned_dates;        "
 
@@ -518,16 +518,16 @@ static sr_s person_s_get_assigned_weekday( vc_t obj )
     return sr_asd( wd_st );
 }
 
-static f3_t person_s_match( const person_s* o, sz_t cday, sz_t wnum )
+static f3_t person_s_match( const person_s* o, uz_t cday, uz_t wnum )
 {
-    sz_t wday = wday_from_cday( cday );
+    uz_t wday = wday_from_cday( cday );
     if( o->assigned_nweekday < 7 && o->assigned_nweekday != wday ) return 0;
 
     f3_t weight = preferences_s_match( &o->preferences, cday, wnum );
     f3_t score = 1.0;
     if( o->assigned_dates.size > 0 )
     {
-        sz_t last_assg = o->assigned_dates.data[ o->assigned_dates.size - 1 ].cday;
+        uz_t last_assg = o->assigned_dates.data[ o->assigned_dates.size - 1 ].cday;
         // diff: distance from last assignment in weeks
         f3_t diff = ( f3_t )( ( cday > last_assg ) ? ( cday - last_assg ) : 0 );
         diff *= weight;
@@ -547,13 +547,13 @@ static sc_t assignment_s_def = "assignment_s = "
 
 BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( assignment_s, assignment_s_def )
 
-static sz_t assignment_s_get_assignment_index( const assignment_s* o, sz_t cday )
+static uz_t assignment_s_get_assignment_index( const assignment_s* o, uz_t cday )
 {
-    for( sz_t i = 0; i < o->size; i++ )
+    for( uz_t i = 0; i < o->size; i++ )
     {
         person_s* p = o->data[ i ];
         date_arr_s* a = &p->assigned_dates;
-        for( sz_t j = 0 ;j < a->size; j++ ) if( a->data[ j ].cday == cday ) return i;
+        for( uz_t j = 0 ;j < a->size; j++ ) if( a->data[ j ].cday == cday ) return i;
     }
     return o->size;
 }
@@ -573,13 +573,13 @@ static sc_t assigner_s_def = "assigner_s = "
     "period_arr_s vacation_arr;"
     "date_arr_s holidays;"
     "u2_t rseed = 12345; "
-    "sz_t cycles = 128;  "
+    "uz_t cycles = 128;  "
 "}";
 
 BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( assigner_s, assigner_s_def )
 
 // returns 0 in case of schoolday, 1 in case of vacation, 2 in case of holiday
-static s2_t assigner_s_free_day( const assigner_s* o, sz_t cday )
+static s2_t assigner_s_free_day( const assigner_s* o, uz_t cday )
 {
     if( period_arr_s_inside( &o->vacation_arr, cday ) ) return 1;
     if( date_arr_s_matches( &o->holidays, cday ) ) return 2;
@@ -589,28 +589,28 @@ static s2_t assigner_s_free_day( const assigner_s* o, sz_t cday )
 static assignment_s* assigner_s_try_assignment( const assigner_s* o, const assignment_s* src, period_s period, u2_t rseed, f3_t* score )
 {
     f3_t score_l = 0;
-    sz_t count = 0;
-    sz_t fail_count = 0;
+    uz_t count = 0;
+    uz_t fail_count = 0;
 
     assignment_s* assignment = assignment_s_clone( src );
 
     {
-        bcore_arr_sz_s* permutation = bcore_arr_sz_s_create_random_permutation( bcore_xsg_u2, rseed, assignment->size );
+        bcore_arr_uz_s* permutation = bcore_arr_uz_s_create_random_permutation( bcore_xsg_u2, rseed, assignment->size );
         bcore_array_a_reorder( (bcore_array*)assignment, permutation );
-        bcore_arr_sz_s_discard( permutation );
+        bcore_arr_uz_s_discard( permutation );
     }
 
-    for( sz_t cday = period.first.cday; cday <= period.last.cday; cday++ )
+    for( uz_t cday = period.first.cday; cday <= period.last.cday; cday++ )
     {
         if( assigner_s_free_day( o, cday ) ) continue;
 
-        sz_t wday = wday_from_cday( cday );
-        sz_t wnum = wnum_from_cday( cday );
+        uz_t wday = wday_from_cday( cday );
+        uz_t wnum = wnum_from_cday( cday );
 
         if( !( &o->mo )[ wday ] ) continue;
         f3_t best_match = 0;
-        sz_t best_idx = -1;
-        for( sz_t i = 0; i < assignment->size; i++ )
+        uz_t best_idx = -1;
+        for( uz_t i = 0; i < assignment->size; i++ )
         {
             person_s* p = assignment->data[ i ];
             f3_t match = person_s_match( p, cday, wnum );
@@ -623,7 +623,7 @@ static assignment_s* assigner_s_try_assignment( const assigner_s* o, const assig
         if( best_idx < assignment->size )
         {
             person_s* p = assignment->data[ best_idx ];
-            bcore_array_a_push( (bcore_array*)&p->assigned_dates, sr_sz( cday ) );
+            bcore_array_a_push( (bcore_array*)&p->assigned_dates, sr_uz( cday ) );
             if( p->assigned_nweekday >= 7 && p->preferences.always_same_workday ) p->assigned_nweekday = wday;
             score_l += best_match;
         }
@@ -644,7 +644,7 @@ assignment_s* assigner_s_create_assignment( const assigner_s* o, const assignmen
     assignment_s* best_assignment = assignment_s_clone( src );
     f3_t best_score = -1E20;
     u2_t rval = bcore_xsg3_u2( o->rseed );
-    for( sz_t i = 0; i < o->cycles; i++ )
+    for( uz_t i = 0; i < o->cycles; i++ )
     {
         f3_t score = 0;
         rval = bcore_xsg3_u2( rval );
@@ -672,15 +672,15 @@ st_s* assigner_s_show_days( const assigner_s* o, const assignment_s* src, period
     st_s_discard( st_first );
     st_s_discard( st_last );
 
-    for( sz_t cday = period.first.cday; cday <= period.last.cday; cday++ )
+    for( uz_t cday = period.first.cday; cday <= period.last.cday; cday++ )
     {
-        sz_t wday = wday_from_cday( cday );
+        uz_t wday = wday_from_cday( cday );
         if( wday == 0 ) st_s_pushf( log, "\n" );
         if( !( &o->mo )[ wday ] ) continue;
         st_s* dmy_string = string_from_cday( cday );
         st_s_pushf( log, "    (W%02zu) %s %s: ", wnum_from_cday( cday ), sc_from_wday( wday ), dmy_string->sc );
         st_s_discard( dmy_string );
-        sz_t idx = assignment_s_get_assignment_index( src, cday );
+        uz_t idx = assignment_s_get_assignment_index( src, cday );
         if( idx < src->size )
         {
             person_s* p = src->data[ idx ];
@@ -706,7 +706,7 @@ st_s* assigner_s_show_persons( const assigner_s* o, const assignment_s* src )
     assignment_s* assignment = assignment_s_clone( src );
     bcore_array_a_sort( (bcore_array*)assignment, 0, -1, 1 );
 
-    for( sz_t i = 0; i < assignment->size; i++ )
+    for( uz_t i = 0; i < assignment->size; i++ )
     {
         const person_s* person = assignment->data[ i ];
         st_s_pushf( log, "%s", person->name.sc );
@@ -715,11 +715,11 @@ st_s* assigner_s_show_persons( const assigner_s* o, const assignment_s* src )
             st_s_pushf( log, " (%s)", sc_from_wday( person->assigned_nweekday ) );
         }
         st_s_pushf( log, ":", person->name.sc );
-        for( sz_t j = 0; j < person->assigned_dates.size; j++ )
+        for( uz_t j = 0; j < person->assigned_dates.size; j++ )
         {
             if( j > 0 ) st_s_pushf( log, ", " );
             if( j % 4 == 0 ) st_s_pushf( log, "\n    " );
-            sz_t cday = person->assigned_dates.data[ j ].cday;
+            uz_t cday = person->assigned_dates.data[ j ].cday;
             st_s_push_st_d( log, string_from_cday( cday ) );
         }
         st_s_pushf( log, "\n\n" );
@@ -733,11 +733,11 @@ st_s* assigner_s_show_calendar( const assigner_s* o, const assignment_s* src, pe
     st_s* log = st_s_create();
     assignment_s* assignment = assignment_s_clone( src );
 
-   sz_t name_space = 0;
+   uz_t name_space = 0;
 
     sc_t week_sc = "MTWTFSS";
 
-    for( sz_t i = 0; i < assignment->size; i++ )
+    for( uz_t i = 0; i < assignment->size; i++ )
     {
         const person_s* person = assignment->data[ i ];
         name_space = ( person->name.size > name_space ) ? person->name.size : name_space;
@@ -750,9 +750,9 @@ st_s* assigner_s_show_calendar( const assigner_s* o, const assignment_s* src, pe
     st_s_discard( st_first );
     st_s_discard( st_last );
 
-    sz_t cdays     = ( period.last.cday - period.first.cday + 1 );
-    sz_t gap_width = 7;
-    sz_t cal_start = name_space + gap_width;
+    uz_t cdays     = ( period.last.cday - period.first.cday + 1 );
+    uz_t gap_width = 7;
+    uz_t cal_start = name_space + gap_width;
 
     st_s* wdat_row = bcore_life_s_push_aware( l, st_s_create() );
     st_s* wnum_row = bcore_life_s_push_aware( l, st_s_create() );
@@ -763,23 +763,23 @@ st_s* assigner_s_show_calendar( const assigner_s* o, const assignment_s* src, pe
     st_s_push_char_n( wday_row, ' ', cal_start );
 
     bcore_arr_st_s* pers_arr = bcore_life_s_push_aware( l, bcore_arr_st_s_create() );
-    for( sz_t i = 0; i < assignment->size; i++ )
+    for( uz_t i = 0; i < assignment->size; i++ )
     {
         st_s* s = bcore_arr_st_s_push_sc( pers_arr, NULL );
         st_s_push_fa( s, "#pn {#sc_t}", name_space, assignment->data[ i ]->name.sc );
-        sz_t awday = assignment->data[ i ]->assigned_nweekday;
+        uz_t awday = assignment->data[ i ]->assigned_nweekday;
         st_s_push_fa( s, "#pl5 {(#sc_t)}:#pn {}", awday < 7 ? sc_from_wday( awday ) : "**" );
         st_s_push_fa( s, "#pn {}", cal_start - s->size );
     }
 
-    sz_t fail_count = 0;
-    for( sz_t i = 0; i < cdays; i++ )
+    uz_t fail_count = 0;
+    for( uz_t i = 0; i < cdays; i++ )
     {
-        sz_t cday = period.first.cday + i;
-        sz_t wday = wday_from_cday( cday );
+        uz_t cday = period.first.cday + i;
+        uz_t wday = wday_from_cday( cday );
         bl_t regular_wday = ( &o->mo )[ wday ];
         s2_t free_type = assigner_s_free_day( o, cday );
-        sz_t assignment_idx = assignment_s_get_assignment_index( assignment, cday );
+        uz_t assignment_idx = assignment_s_get_assignment_index( assignment, cday );
         bl_t not_assigned = ( assignment_idx < assignment->size ) ? false : true;
         bl_t failure = ( regular_wday && ( free_type == 0 ) && not_assigned );
         fail_count += failure;
@@ -787,17 +787,17 @@ st_s* assigner_s_show_calendar( const assigner_s* o, const assignment_s* src, pe
         if( wday == 0 )
         {
             st_s* date_st = string_from_cday( cday );
-            sz_t wnum = wnum_from_cday( cday );
+            uz_t wnum = wnum_from_cday( cday );
             st_s_push_sc( wday_row, "|" );
-            st_s_push_fa( wnum_row, "|W#sz_t", wnum );
+            st_s_push_fa( wnum_row, "|W#uz_t", wnum );
             st_s_push_fa( wdat_row, "|#t6{#<st_s*>}", date_st );
             st_s_discard( date_st );
-            for( sz_t i = 0; i < pers_arr->size; i++ ) st_s_push_char( pers_arr->data[ i ], '|' );
+            for( uz_t i = 0; i < pers_arr->size; i++ ) st_s_push_char( pers_arr->data[ i ], '|' );
         }
 
         st_s_push_char( wday_row, week_sc[ wday ] );
 
-        for( sz_t i = 0; i < pers_arr->size; i++ )
+        for( uz_t i = 0; i < pers_arr->size; i++ )
         {
             bl_t match = date_arr_s_matches( &assignment->data[ i ]->assigned_dates, cday );
             st_s* s = pers_arr->data[ i ];
@@ -807,7 +807,7 @@ st_s* assigner_s_show_calendar( const assigner_s* o, const assignment_s* src, pe
 
         if( wday_row->size > wnum_row->size ) st_s_push_char( wnum_row, ' ' );
         if( wday_row->size > wdat_row->size ) st_s_push_char( wdat_row, ' ' );
-        for( sz_t i = 0; i < pers_arr->size; i++ )
+        for( uz_t i = 0; i < pers_arr->size; i++ )
         {
             st_s* s = pers_arr->data[ i ];
             if( wday_row->size > s->size ) st_s_push_char( s, ' ' );
@@ -821,9 +821,9 @@ st_s* assigner_s_show_calendar( const assigner_s* o, const assignment_s* src, pe
     st_s_push_fa( log, "#<st_s*>\n", wdat_row );
     st_s_push_fa( log, "#<st_s*>\n", wday_row );
     st_s_push_fa( log, "#<st_s*>\n", sepr_row );
-    for( sz_t i = 0; i < pers_arr->size; i++ ) st_s_push_fa( log, "#<st_s*>\n", pers_arr->data[ i ] );
+    for( uz_t i = 0; i < pers_arr->size; i++ ) st_s_push_fa( log, "#<st_s*>\n", pers_arr->data[ i ] );
     st_s_push_fa( log, "#<st_s*>\n", sepr_row );
-    st_s_push_fa( log, "#sz_t missing assignments\n", fail_count );
+    st_s_push_fa( log, "#uz_t missing assignments\n", fail_count );
 
     bcore_life_s_discard( l );
 
@@ -866,8 +866,8 @@ st_s* assigner_s_show_html_table( const assigner_s* o, const assignment_s* src, 
                   l_string_from_cday( l, period.first.cday ),
                   l_string_from_cday( l, period.last.cday ) );
 
-    sz_t start_cday = period.first.cday - wday_from_cday( period.first.cday ); // mo of first week
-    sz_t end_cday = period.last.cday - wday_from_cday( period.last.cday ) + 6; // su of last week
+    uz_t start_cday = period.first.cday - wday_from_cday( period.first.cday ); // mo of first week
+    uz_t end_cday = period.last.cday - wday_from_cday( period.last.cday ) + 6; // su of last week
 
     st_s_push_fa( log, "<table>\n" );
     st_s_push_fa( log, "<thead>\n" );
@@ -886,19 +886,19 @@ st_s* assigner_s_show_html_table( const assigner_s* o, const assignment_s* src, 
     st_s_push_fa( log, "</thead>\n" );
 
     st_s_push_fa( log, "<tbody>\n" );
-    sz_t mnum1 = 0;
-    sz_t mnum2 = 0;
-    for( sz_t cday = start_cday; cday <= end_cday; cday++ )
+    uz_t mnum1 = 0;
+    uz_t mnum2 = 0;
+    for( uz_t cday = start_cday; cday <= end_cday; cday++ )
     {
-        sz_t wday = wday_from_cday( cday );
+        uz_t wday = wday_from_cday( cday );
         dmy_s dmy = dmy_from_cday( cday );
-        sz_t wnum = wnum_from_cday( cday );
+        uz_t wnum = wnum_from_cday( cday );
 
         if( wday == 0 )
         {
             st_s_push_fa( log, "<tr style=\"background-color: #sc_t;\">", ( wnum & 1 ) ? "#ffffff" : "#f8f8f8" );
             st_s_push_fa( log, "<td style=\"background-color: #sc_t;\">", "#f0f0f0" );
-            st_s_push_fa( log, "#sz_t", wnum );
+            st_s_push_fa( log, "#uz_t", wnum );
             st_s_push_fa( log, "</td>" );
             mnum1 = 0;
             mnum2 = 0;
@@ -915,7 +915,7 @@ st_s* assigner_s_show_html_table( const assigner_s* o, const assignment_s* src, 
                 mnum2 = dmy.month;
             }
 
-            sz_t idx = assignment_s_get_assignment_index( src, cday );
+            uz_t idx = assignment_s_get_assignment_index( src, cday );
             s2_t free_type = ( idx == src->size ) ? assigner_s_free_day( o, cday ) : 0;
 
             bl_t regular = idx < src->size;
@@ -945,7 +945,7 @@ st_s* assigner_s_show_html_table( const assigner_s* o, const assignment_s* src, 
                 st_s_push_fa( log, "<td style=\"background-color: #sc_t;\">", "#f08080" );
             }
 
-            st_s_push_fa( log, "#sz_t", dmy.day );
+            st_s_push_fa( log, "#uz_t", dmy.day );
 
             if( idx < src->size )
             {
@@ -972,17 +972,17 @@ st_s* assigner_s_show_html_table( const assigner_s* o, const assignment_s* src, 
             st_s_push_fa( log, "<td style=\"background-color: #sc_t;\">", "#f0f0f0" );
             if( mnum1 && !mnum2 )
             {
-                st_s_push_fa( log, "<div>#sc_t</div><div>#sz_t</div>", month_list[ mnum1 - 1 ], dmy.year );
+                st_s_push_fa( log, "<div>#sc_t</div><div>#uz_t</div>", month_list[ mnum1 - 1 ], dmy.year );
             }
             else
             {
                 if( mnum2 == 1 )
                 {
-                    st_s_push_fa( log, "<div>#sc_t #sz_t/</div><div>#sc_t #sz_t</div>", month_list[ mnum1 - 1 ], dmy.year - 1, month_list[ mnum2 - 1 ], dmy.year );
+                    st_s_push_fa( log, "<div>#sc_t #uz_t/</div><div>#sc_t #uz_t</div>", month_list[ mnum1 - 1 ], dmy.year - 1, month_list[ mnum2 - 1 ], dmy.year );
                 }
                 else
                 {
-                    st_s_push_fa( log, "<div>#sc_t/#sc_t</div><div>#sz_t</div>", month_list[ mnum1 - 1 ], month_list[ mnum2 - 1 ], dmy.year );
+                    st_s_push_fa( log, "<div>#sc_t/#sc_t</div><div>#uz_t</div>", month_list[ mnum1 - 1 ], month_list[ mnum2 - 1 ], dmy.year );
                 }
             }
 
@@ -1012,10 +1012,10 @@ st_s* guard_selftest( void )
     st_s* log = st_s_create();
     bcore_life_s* l = bcore_life_s_create();
 
-    for( sz_t cday = 0; cday < 60000; cday++ )
+    for( uz_t cday = 0; cday < 60000; cday++ )
     {
         dmy_s* dt = dmy_s_from_cday( cday );
-        sz_t cday2 = cday_from_dmy_s( dt );
+        uz_t cday2 = cday_from_dmy_s( dt );
         ASSERT( cday == cday2 );
         dmy_s_discard( dt );
     }
@@ -1045,7 +1045,7 @@ st_s* guard_selftest( void )
     }
 
     {
-        sz_t cday = 0;
+        uz_t cday = 0;
         st_s* s = string_from_cday( cday );
         st_s_pushf( log, "cday %zu is %s, %s\n", cday, sc_from_wday( wday_from_cday( cday ) ), s->sc );
         st_s_discard( s );

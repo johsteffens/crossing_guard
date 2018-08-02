@@ -104,7 +104,7 @@ int main( int argc, const char** argv )
 
         st_s* output_format = NULL;
         st_s* output_file = NULL;
-        for( sz_t i = 5; i < argc; i++ )
+        for( uz_t i = 5; i < argc; i++ )
         {
             if( bcore_strcmp( argv[ i ], "-format" ) == 0 )
             {

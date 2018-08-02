@@ -22,8 +22,8 @@
             // any day.
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"mo, tu, we, th, fr"</>
-                weekly_period:<sz_t>1</>                // 1: every week, 2 every 2nd week, 3: every third week, ...
-                including_week:<sz_t>1</>               // week-number included in weekly period (meaningless when period is 1)
+                weekly_period:<uz_t>1</>                // 1: every week, 2 every 2nd week, 3: every third week, ...
+                including_week:<uz_t>1</>               // week-number included in weekly period (meaningless when period is 1)
             </>
 
             // True: Crossing guard will choose always the same weekday within the person's preferences.
@@ -73,8 +73,8 @@
         preferences:<preferences_s>
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"tu, fr"</>
-                weekly_period:<sz_t>2</>
-                including_week:<sz_t>1</>
+                weekly_period:<uz_t>2</>
+                including_week:<uz_t>1</>
             </>
         </>
     </>
@@ -87,8 +87,8 @@
             weight: <f3_t>0.5</>
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"mo, tu, we, th, fr"</>
-                weekly_period:<sz_t>1</>
-                including_week:<sz_t>1</>
+                weekly_period:<uz_t>1</>
+                including_week:<uz_t>1</>
             </>
         </>
     </>
@@ -100,8 +100,8 @@
         preferences:<preferences_s>
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"tu"</>
-                weekly_period:<sz_t>1</>
-                including_week:<sz_t>1</>
+                weekly_period:<uz_t>1</>
+                including_week:<uz_t>1</>
             </>
         </>
     </>
@@ -113,8 +113,8 @@
         preferences:<preferences_s>
             weekday_availability:<weekday_availability_s>
                 weekdays:<st_s>"we"</>
-                weekly_period:<sz_t>2</>
-                including_week:<sz_t>2</>
+                weekly_period:<uz_t>2</>
+                including_week:<uz_t>2</>
             </>
         </>
     </>

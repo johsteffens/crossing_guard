@@ -82,6 +82,6 @@
     
     // Additional settings (do not change)
     rseed:<u2_t>12345</>
-    cycles:<sz_t>128</>
+    cycles:<uz_t>128</>
 </>
 

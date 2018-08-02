@@ -22,44 +22,44 @@
 typedef struct dmy_s
 {
     aware_t _;
-    sz_t day;
-    sz_t month;
-    sz_t year;
+    uz_t day;
+    uz_t month;
+    uz_t year;
 } dmy_s;
 BCORE_DECLARE_FUNCTIONS_OBJ( dmy_s )
 
 void dmy_s_check_plausibility( const dmy_s* o );
 st_s*   string_from_dmy_s( const dmy_s* o );
-st_s*   string_from_cday( sz_t cday );
-st_s* l_string_from_cday( bcore_life_s* l, sz_t cday );
+st_s*   string_from_cday( uz_t cday );
+st_s* l_string_from_cday( bcore_life_s* l, uz_t cday );
 dmy_s* dmy_s_from_string( const st_s* string );
 dmy_s* dmy_s_from_sc( sc_t sc );
-sz_t   cday_from_dmy_s( const dmy_s* o );
-sz_t   cday_from_dmy_sc( sc_t sc );  // format "07.09.2023"
-dmy_s* dmy_s_from_cday( sz_t cd );
-dmy_s  dmy_from_cday( sz_t cd );
+uz_t   cday_from_dmy_s( const dmy_s* o );
+uz_t   cday_from_dmy_sc( sc_t sc );  // format "07.09.2023"
+dmy_s* dmy_s_from_cday( uz_t cd );
+dmy_s  dmy_from_cday( uz_t cd );
 
 /// wday == weekday: 0 = monday, ..., 6 = sunday
-sz_t wday_from_cday( sz_t cd );
-sz_t wday_from_date( const dmy_s* dt );
-sz_t wday_from_dmy_sc( sc_t sc ); // format "07.09.2023"
-sc_t sc_from_wday( sz_t wday );
-sz_t wday_from_sc( sc_t sc );
+uz_t wday_from_cday( uz_t cd );
+uz_t wday_from_date( const dmy_s* dt );
+uz_t wday_from_dmy_sc( sc_t sc ); // format "07.09.2023"
+sc_t sc_from_wday( uz_t wday );
+uz_t wday_from_sc( sc_t sc );
 
 /// wcnt == weekcounter (week 1 starts with first monday on cday)
-sz_t wcnt_from_cday( sz_t cday );
+uz_t wcnt_from_cday( uz_t cday );
 
 /// wnum == weeknumber according to ISO 8601
-sz_t wnum_from_date( const dmy_s* dt );
-sz_t wnum_from_cday( sz_t cday );
-sz_t wnum_from_dmy_sc( sc_t sc );
+uz_t wnum_from_date( const dmy_s* dt );
+uz_t wnum_from_cday( uz_t cday );
+uz_t wnum_from_dmy_sc( sc_t sc );
 
 /**********************************************************************************************************************/
 
 #define TYPEOF_date_s typeof( "date_s" )
 typedef struct date_s
 {
-    sz_t cday;
+    uz_t cday;
 } date_s;
 BCORE_DECLARE_FUNCTIONS_OBJ( date_s )
 
@@ -75,7 +75,7 @@ typedef struct date_arr_s
         struct
         {
             date_s* data;
-            sz_t size, space;
+            uz_t size, space;
         };
     };
 } date_arr_s;
@@ -92,7 +92,7 @@ typedef struct period_s
 } period_s;
 BCORE_DECLARE_FUNCTIONS_OBJ( period_s )
 
-bl_t period_s_inside( const period_s* o, sz_t cday );
+bl_t period_s_inside( const period_s* o, uz_t cday );
 
 /**********************************************************************************************************************/
 
@@ -106,7 +106,7 @@ typedef struct period_arr_s
         struct
         {
             period_s* data;
-            sz_t size, space;
+            uz_t size, space;
         };
     };
 } period_arr_s;
@@ -119,8 +119,8 @@ typedef struct weekday_availability_s
 {
     aware_t _;
     u0_t weekday_flags;  // mo: &1, tu: &2, we: &4, ...
-    sz_t weekly_period;  // 1: each week, 2 every other week, 3 every third week, etc
-    sz_t including_week; // this week number is included in period;
+    uz_t weekly_period;  // 1: each week, 2 every other week, 3 every third week, etc
+    uz_t including_week; // this week number is included in period;
 } weekday_availability_s;
 BCORE_DECLARE_FUNCTIONS_OBJ( weekday_availability_s )
 
@@ -147,7 +147,7 @@ typedef struct person_s
     aware_t _;
     st_s name;
     preferences_s  preferences;
-    sz_t           assigned_nweekday;
+    uz_t           assigned_nweekday;
     date_arr_s     assigned_dates;
 } person_s;
 BCORE_DECLARE_FUNCTIONS_OBJ( person_s )
@@ -164,7 +164,7 @@ typedef struct assignment_s
         struct
         {
             person_s** data;
-            sz_t size, space;
+            uz_t size, space;
         };
     };
 } assignment_s;
@@ -186,7 +186,7 @@ typedef struct assigner_s
     period_arr_s vacation_arr;
     date_arr_s holidays;
     u2_t rseed;
-    sz_t cycles;
+    uz_t cycles;
 } assigner_s;
 BCORE_DECLARE_FUNCTIONS_OBJ( assigner_s )
 
