@@ -125,7 +125,7 @@ int main( int argc, const char** argv )
         st_s* out = bcore_life_s_push_aware( l, process( config_file, assignment_file, period, output_format ) );
         if( output_file )
         {
-            vd_t file = bcore_life_s_push_aware( l, bcore_sink_create_file( output_file->sc ) );
+            vd_t file = bcore_life_s_push_aware( l, bcore_sink_open_file( output_file->sc ) );
             bcore_sink_a_push_string( file, out );
         }
         else
