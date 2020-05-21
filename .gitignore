@@ -3,3 +3,4 @@ build/crossing_guard
 dev
 bin
 obj
+*.backup

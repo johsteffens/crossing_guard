@@ -81,7 +81,7 @@ st_s* process( const st_s* assigner_file, const st_s* assignment_file, period_s 
 
 int main( int argc, const char** argv )
 {
-    bcore_register_signal_handler( guard_signal_handler );
+    bcore_register_signal_handler( guard_signal_handler, 0 );
 
     if( argc < 5 )
     {
