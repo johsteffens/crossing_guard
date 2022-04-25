@@ -542,7 +542,7 @@ static f3_t person_s_match( const person_s* o, uz_t cday, uz_t wnum )
 static sc_t assignment_s_def = "assignment_s = "
 "{"
     "aware_t _;       "
-    "person_s * [] arr; "
+    "person_s => [] arr; "
 "}";
 
 BCORE_DEFINE_FUNCTIONS_SELF_OBJECT_INST( assignment_s, assignment_s_def )
