@@ -1,6 +1,6 @@
 CC      = gcc
 CFLAGS  = -Wall -O3 -std=c11 
-LDFLAGS = -lm -lpthread
+LDFLAGS = -lm -lpthread -latomic
 
 BETH_SRCS    = ../../beth/lib
 CROSSING_GUARD_SRCS = ../src
