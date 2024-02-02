@@ -33,9 +33,9 @@ Crossing-Guard will take the the two files and calculate the assignment for all 
       * `git clone https://github.com/johsteffens/crossing_guard.git`
       * *(Ensure both repositories have the same root folder)*
    * In a terminal ...
-      * enter folder crossing_guard/build: `cd crossing_guard/build`.
+      * enter folder crossing_guard/build: `cd crossing_guard`.
       * run: `make`. 
-      * This creates the executable binary file `crossing_guard`.
+      * This creates the executable binary file `bin/crossing_guard`.
 
 ### Example
 Folder [example](https://github.com/johsteffens/crossing_guard/tree/master/example) contains an example configuration with some fantasy-names.
