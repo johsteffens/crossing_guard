@@ -524,17 +524,29 @@ static f3_t person_s_match( const person_s* o, uz_t cday, uz_t wnum )
     if( o->assigned_nweekday < 7 && o->assigned_nweekday != wday ) return 0;
 
     f3_t weight = preferences_s_match( &o->preferences, cday, wnum );
-    f3_t score = 1.0;
+    f3_t max_score = 1.0;
+    f3_t score = max_score * 0.1;
+    uz_t last_assigned_cday = 0;
+
     if( o->assigned_dates.size > 0 )
     {
-        uz_t last_assg = o->assigned_dates.data[ o->assigned_dates.size - 1 ].cday;
-        // diff: distance from last assignment in weeks
-        f3_t diff = ( f3_t )( ( cday > last_assg ) ? ( cday - last_assg ) : 0 );
-        diff *= weight;
-        f3_t sqr_diff = diff * diff;
-        score = sqr_diff / ( sqr_diff + 1 );
+        for( uz_t i = 0; i < o->assigned_dates.size; i++ )
+        {
+            uz_t assigned_cday = o->assigned_dates.data[ i ].cday;
+
+            // if person is assigned on this day return maximum score
+            if( assigned_cday == cday ) return max_score;
+
+            // last assigned day in the past
+            last_assigned_cday = ( cday > assigned_cday && assigned_cday > last_assigned_cday ) ? assigned_cday : last_assigned_cday;
+        }
     }
-    return score;
+
+    // diff: distance from last assignment in cdays
+    f3_t diff = ( f3_t )( ( cday > last_assigned_cday ) ? ( cday - last_assigned_cday ) : 0 );
+    diff *= weight;
+    f3_t sqr_diff = diff * diff;
+    return score * sqr_diff / ( sqr_diff + 1 );
 }
 
 /**********************************************************************************************************************/
@@ -623,7 +635,10 @@ static assignment_s* assigner_s_try_assignment( const assigner_s* o, const assig
         if( best_idx < assignment->size )
         {
             person_s* p = assignment->data[ best_idx ];
-            bcore_array_a_push( (bcore_array*)&p->assigned_dates, sr_uz( cday ) );
+
+            bl_t already_assigned = false;
+            for( uz_t i = 0; i < p->assigned_dates.size; i++ ) already_assigned = already_assigned || ( p->assigned_dates.data[ i ].cday == cday );
+            if( !already_assigned ) bcore_array_a_push( (bcore_array*)&p->assigned_dates, sr_uz( cday ) );
             if( p->assigned_nweekday >= 7 && p->preferences.always_same_workday ) p->assigned_nweekday = wday;
             score_l += best_match;
         }
